@@ -34,6 +34,17 @@ L'utilisateur souhaite installer un nouveau la package.
 
 Il est nécessaire de récupérer le contenu d'une librairie pour éclairer une réponse technique.
 
-
-
 Il faut utiliser les outils resolve-library-id ou get-library-docs.
+
+
+3. browser-tools
+     But : Inspecter, auditer ou extraire dynamiquement des informations depuis une page web locale.
+     Utiliser ce serveur lorsque :
+       • L'utilisateur souhaite récupérer les logs console, réseau, erreurs JS.
+       • Il faut exécuter des audits de performance, accessibilité, SEO, Next.js.
+       • L'utilisateur veut capturer une capture d’écran ou inspecter un élément sélectionné.
+     Outils disponibles :
+       - getConsoleLogs, getConsoleErrors, getNetworkErrors, getNetworkLogs
+       - takeScreenshot, getSelectedElement
+       - runAccessibilityAudit, runPerformanceAudit, runSEOAudit, runNextJSAudit
+       - runBestPracticesAudit, runDebuggerMode, runAuditMode, wipeLogs
