@@ -47,10 +47,19 @@ model Session {
 
 model User {
   id            String    @id @default(cuid())
+  email         String    @unique
+  password_hash String?   @map("password_hash")
   name          String?
-  email         String?   @unique
+  avatar_url    String?   @map("avatar_url")
+  provider      String    @default("local")
+  provider_id   String?   @map("provider_id")
+  created_at    DateTime  @default(now()) @map("created_at")
+  updated_at    DateTime  @updatedAt @map("updated_at")
+  
+  // Champs pour NextAuth.js (optionnels pour compatibilité)
   emailVerified DateTime? @map("email_verified")
-  image         String?
+  image         String?   // alias pour avatar_url
+  
   accounts      Account[]
   sessions      Session[]
 
