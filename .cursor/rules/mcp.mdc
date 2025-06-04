@@ -1,0 +1,39 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Règle pour déterminer quand utiliser les MCP servers
+
+1. sequential-thinking
+
+But : Gérer des tâches complexes impliquant un raisonnement logique structuré, souvent multi-étapes.
+
+Utiliser ce serveur lorsque :
+
+L'utilisateur demande une solution étape par étape.
+
+Une tâche nécessite la planification d'une suite logique (ex : générer un plan de composant, une stratégie d'implémentation).
+
+Il faut décomposer un problème abstrait en sous-problèmes plus simples.
+
+2. context7
+
+But : Accéder à la documentation technique d'une bibliothèque externe ou résoudre l'identité d'une librairie.
+
+Utiliser ce serveur lorsque :
+
+L'utilisateur demande la documentation d'un package, d'une fonction ou d'une API précise.
+
+L'utilisateur souhaite installer un nouveau la package.
+
+Il est nécessaire de récupérer le contenu d'une librairie pour éclairer une réponse technique.
+
+
+
+Il faut utiliser les outils resolve-library-id ou get-library-docs.

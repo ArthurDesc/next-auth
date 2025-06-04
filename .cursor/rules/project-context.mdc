@@ -1,0 +1,87 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description:
+globs:
+alwaysApply: false
+---
+# Contexte du projet
+
+Ce projet est un **boilerplate d'authentification moderne** utilisant **Next.js**, conçu pour être réutilisable et extensible.  
+L'objectif est de fournir une base solide pour l'authentification avec des technologies modernes et une architecture propre.
+
+## Objectif du projet
+
+Créer un système d'authentification complet et moderne comprenant :
+- Authentification sécurisée (connexion/inscription/déconnexion)
+- Gestion des sessions et des tokens
+- Interface utilisateur moderne et responsive
+- Base de données relationnelle avec ORM
+- Interface d'administration de base de données
+- Architecture modulaire et réutilisable
+
+## Stack technique et dépendances principales
+
+Le projet utilise les technologies et bibliothèques suivantes :
+
+### Framework et core
+- **Next.js** (App Router) - Framework React fullstack
+- **TypeScript** - Typage statique
+- **React** - Bibliothèque UI
+
+### Authentification
+- **NextAuth.js** - Solution d'authentification pour Next.js
+- Providers OAuth (Google, GitHub, etc.)
+- Sessions et JWT
+
+### Base de données et ORM
+- **PostgreSQL** - Base de données relationnelle
+- **Prisma** - ORM moderne pour TypeScript
+- **Prisma Studio** - Interface d'administration de base de données
+
+### Interface utilisateur
+- **Tailwind CSS v4** - Framework CSS utility-first
+- **shadcn/ui** - Composants UI modernes et accessibles
+- **Lucide React** - Icônes
+- **Radix UI** - Primitives UI accessibles
+
+### Développement et qualité
+- **ESLint** - Linting JavaScript/TypeScript
+- **Prettier** - Formatage de code
+- **TypeScript** - Vérification de types
+
+## Architecture du projet
+
+```
+src/
+├── app/                    # App Router Next.js
+│   ├── (auth)/            # Groupe de routes authentification
+│   ├── (dashboard)/       # Groupe de routes tableau de bord
+│   ├── api/               # API routes
+│   └── globals.css        # Styles globaux
+├── components/            # Composants réutilisables
+│   ├── ui/               # Composants shadcn/ui
+│   ├── auth/             # Composants d'authentification
+│   └── layout/           # Composants de mise en page
+├── lib/                  # Utilitaires et configurations
+│   ├── auth.ts           # Configuration NextAuth
+│   ├── db.ts             # Configuration Prisma
+│   └── utils.ts          # Fonctions utilitaires
+├── types/                # Types TypeScript
+└── hooks/                # Hooks React personnalisés
+```
+
+## Bonnes pratiques du projet
+
+- **Server Components par défaut** avec Client Components quand nécessaire
+- **Validation des données** avec Zod
+- **Gestion d'erreurs** centralisée
+- **Performance** optimisée (lazy loading, optimisation images)
+- **Sécurité** renforcée (CSRF, XSS, validation côté serveur)
+- **Accessibilité** respectée (ARIA, navigation clavier)
+
+Ce fichier sera enrichi au fur et à mesure du développement avec les spécificités fonctionnelles de l'application.
+
