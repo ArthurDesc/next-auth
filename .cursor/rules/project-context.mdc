@@ -33,7 +33,7 @@ Le projet utilise les technologies et bibliothèques suivantes :
 - **React** - Bibliothèque UI
 
 ### Authentification
-- **NextAuth.js** - Solution d'authentification pour Next.js
+- **NextAuth.js V4** - Solution d'authentification pour Next.js
 - Providers OAuth (Google, GitHub, etc.)
 - Sessions et JWT
 

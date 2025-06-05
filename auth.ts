@@ -1,11 +1,9 @@
-// TODO: Configuration NextAuth.js v5 à finaliser
-// En attente de la documentation officielle pour NextAuth v5 beta
-
-import NextAuth from "next-auth"
-import { PrismaAdapter } from "@auth/prisma-adapter"
+// Configuration NextAuth.js v4
+import NextAuth, { NextAuthOptions } from "next-auth"
+import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { prisma } from "@/lib/db" // ✅ Utiliser l'instance globale optimisée
-import Google from "next-auth/providers/google"
-import Credentials from "next-auth/providers/credentials"
+import GoogleProvider from "next-auth/providers/google"
+import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcryptjs"
 import { z } from "zod"
 
@@ -15,7 +13,7 @@ const credentialsSchema = z.object({
   password: z.string().min(1),
 })
 
-export const { auth, handlers, signIn, signOut } = NextAuth({
+export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   session: {
     strategy: "jwt",
@@ -24,11 +22,11 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     signIn: "/auth/signin",
   },
   providers: [
-    Google({
+    GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
-    Credentials({
+    CredentialsProvider({
       name: "credentials",
       credentials: {
         email: { label: "Email", type: "email" },
@@ -119,4 +117,19 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       return true
     },
   },
-}) 
+}
+
+// Export de l'instance NextAuth
+const handler = NextAuth(authOptions)
+
+// Export pour les routes API App Router
+export { handler as GET, handler as POST }
+
+// Export de l'auth pour le middleware et les autres usages
+export const auth = handler.auth || ((req: any) => {
+  return NextAuth(authOptions).auth(req)
+})
+
+// Export des fonctions pour l'usage dans les composants
+export const signIn = handler.signIn
+export const signOut = handler.signOut 

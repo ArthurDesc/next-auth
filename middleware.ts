@@ -1,9 +1,17 @@
-import { auth } from "@/auth"
 import { NextResponse } from "next/server"
+import type { NextRequest } from "next/server"
+import { getToken } from "next-auth/jwt"
 
-export default auth((req) => {
+export async function middleware(req: NextRequest) {
   const { nextUrl } = req
-  const isLoggedIn = !!req.auth
+  
+  // Récupérer le token JWT pour vérifier l'authentification
+  const token = await getToken({ 
+    req, 
+    secret: process.env.NEXTAUTH_SECRET 
+  })
+  
+  const isLoggedIn = !!token
 
   // Routes d'authentification (signin, signup)
   const authRoutes = ["/auth/signin", "/auth/signup"]
@@ -50,7 +58,7 @@ export default auth((req) => {
 
   // Permettre l'accès par défaut (notamment pour "/")
   return NextResponse.next()
-})
+}
 
 // Configuration des routes à surveiller
 export const config = {
