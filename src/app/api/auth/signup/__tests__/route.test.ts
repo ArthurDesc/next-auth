@@ -49,7 +49,7 @@ describe('/api/auth/signup', () => {
     ;(mockPrisma.user.findUnique as jest.Mock).mockResolvedValue(null)
     
     // Mock: hachage du mot de passe
-    mockBcrypt.hash.mockResolvedValue('hashedPassword123')
+    ;(mockBcrypt.hash as jest.Mock).mockResolvedValue('hashedPassword123')
     
     // Mock: création de l'utilisateur
     const createdUser = {
@@ -219,7 +219,7 @@ describe('/api/auth/signup', () => {
     ;(mockPrisma.user.findUnique as jest.Mock).mockResolvedValue(null)
     
     // Mock: hachage réussi
-    mockBcrypt.hash.mockResolvedValue('hashedPassword123')
+    ;(mockBcrypt.hash as jest.Mock).mockResolvedValue('hashedPassword123')
     
     // Mock: erreur lors de la création
     ;(mockPrisma.user.create as jest.Mock).mockRejectedValue(
@@ -248,7 +248,7 @@ describe('/api/auth/signup', () => {
     ;(mockPrisma.user.findUnique as jest.Mock).mockResolvedValue(null)
     
     // Mock: erreur lors du hachage
-    mockBcrypt.hash.mockRejectedValue(new Error('Hashing error'))
+    ;(mockBcrypt.hash as jest.Mock).mockRejectedValue(new Error('Hashing error'))
 
     const request = createMockRequest(userData)
     const response = await POST(request)
@@ -272,7 +272,7 @@ describe('/api/auth/signup', () => {
     ;(mockPrisma.user.findUnique as jest.Mock).mockResolvedValue(null)
     
     // Mock: hachage du mot de passe
-    mockBcrypt.hash.mockResolvedValue('hashedPassword123')
+    ;(mockBcrypt.hash as jest.Mock).mockResolvedValue('hashedPassword123')
     
     // Mock: création de l'utilisateur
     ;(mockPrisma.user.create as jest.Mock).mockResolvedValue({
@@ -300,7 +300,7 @@ describe('/api/auth/signup', () => {
     ;(mockPrisma.user.findUnique as jest.Mock).mockResolvedValue(null)
     
     // Mock: hachage du mot de passe
-    mockBcrypt.hash.mockResolvedValue('hashedPassword123')
+    ;(mockBcrypt.hash as jest.Mock).mockResolvedValue('hashedPassword123')
     
     // Mock: utilisateur créé avec tous les champs (simulant la DB)
     const fullUserData = {

@@ -16,8 +16,9 @@ export function ThemeProvider({
       attribute="class"
       defaultTheme="system"
       enableSystem={true}
-      disableTransitionOnChange={false}
+      disableTransitionOnChange={true}
       themes={["light", "dark"]}
+      storageKey="next-auth-theme"
       {...props}
     >
       {children}
