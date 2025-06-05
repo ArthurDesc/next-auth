@@ -5,32 +5,59 @@ export default auth((req) => {
   const { nextUrl } = req
   const isLoggedIn = !!req.auth
 
-  // Routes publiques (ne nécessitent pas d'authentification)
-  const publicRoutes = ["/", "/auth/signin", "/auth/signup", "/api/auth/signup"]
-  
-  // Routes d'authentification
+  // Routes d'authentification (signin, signup)
   const authRoutes = ["/auth/signin", "/auth/signup"]
   
   // Routes protégées (nécessitent une authentification)
   const protectedRoutes = ["/dashboard", "/profile"]
 
+  // Routes publiques accessibles seulement aux utilisateurs non connectés
+  const publicOnlyRoutes = ["/", "/auth/signin", "/auth/signup"]
+
+  // Routes API d'authentification (toujours accessibles)
+  const authApiRoutes = ["/api/auth/signup"]
+
   const isAuthRoute = authRoutes.includes(nextUrl.pathname)
   const isProtectedRoute = protectedRoutes.some(route => 
     nextUrl.pathname.startsWith(route)
   )
-  const isPublicRoute = publicRoutes.includes(nextUrl.pathname)
+  const isPublicOnlyRoute = publicOnlyRoutes.includes(nextUrl.pathname)
+  const isAuthApiRoute = authApiRoutes.some(route => 
+    nextUrl.pathname.startsWith(route)
+  )
 
-  // Si l'utilisateur est connecté et essaie d'accéder aux pages d'auth
-  if (isLoggedIn && isAuthRoute) {
-    return NextResponse.redirect(new URL("/dashboard", nextUrl))
+  // Laisser passer les routes API d'authentification
+  if (isAuthApiRoute) {
+    return NextResponse.next()
   }
 
-  // Si l'utilisateur n'est pas connecté et essaie d'accéder à une route protégée
-  if (!isLoggedIn && isProtectedRoute) {
-    return NextResponse.redirect(new URL("/auth/signin", nextUrl))
+  // Si l'utilisateur est connecté
+  if (isLoggedIn) {
+    // Rediriger vers le dashboard si il essaie d'accéder aux pages d'auth ou page d'accueil
+    if (isAuthRoute || nextUrl.pathname === "/") {
+      return NextResponse.redirect(new URL("/dashboard", nextUrl))
+    }
+    
+    // Permettre l'accès aux routes protégées
+    if (isProtectedRoute) {
+      return NextResponse.next()
+    }
   }
 
-  // Permettre l'accès à toutes les autres routes
+  // Si l'utilisateur n'est pas connecté
+  if (!isLoggedIn) {
+    // Permettre l'accès aux routes publiques (page d'accueil et auth)
+    if (isPublicOnlyRoute) {
+      return NextResponse.next()
+    }
+    
+    // Rediriger vers signin pour les routes protégées
+    if (isProtectedRoute) {
+      return NextResponse.redirect(new URL("/auth/signin", nextUrl))
+    }
+  }
+
+  // Permettre l'accès par défaut
   return NextResponse.next()
 })
 
@@ -40,11 +67,11 @@ export const config = {
   matcher: [
     /*
      * Match all request paths except for the ones starting with:
-     * - api (API routes)
+     * - api (API routes) sauf /api/auth/signup
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      */
-    "/((?!_next/static|_next/image|favicon.ico|api/auth).*)",
+    "/((?!_next/static|_next/image|favicon.ico|api/(?!auth/signup)).*)",
   ],
 } 
