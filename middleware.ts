@@ -11,9 +11,6 @@ export default auth((req) => {
   // Routes protégées (nécessitent une authentification)
   const protectedRoutes = ["/dashboard", "/profile"]
 
-  // Routes publiques accessibles seulement aux utilisateurs non connectés
-  const publicOnlyRoutes = ["/", "/auth/signin", "/auth/signup"]
-
   // Routes API d'authentification (toujours accessibles)
   const authApiRoutes = ["/api/auth/signup"]
 
@@ -21,7 +18,6 @@ export default auth((req) => {
   const isProtectedRoute = protectedRoutes.some(route => 
     nextUrl.pathname.startsWith(route)
   )
-  const isPublicOnlyRoute = publicOnlyRoutes.includes(nextUrl.pathname)
   const isAuthApiRoute = authApiRoutes.some(route => 
     nextUrl.pathname.startsWith(route)
   )
@@ -46,18 +42,13 @@ export default auth((req) => {
 
   // Si l'utilisateur n'est pas connecté
   if (!isLoggedIn) {
-    // Permettre l'accès aux routes publiques (page d'accueil et auth)
-    if (isPublicOnlyRoute) {
-      return NextResponse.next()
-    }
-    
     // Rediriger vers signin pour les routes protégées
     if (isProtectedRoute) {
       return NextResponse.redirect(new URL("/auth/signin", nextUrl))
     }
   }
 
-  // Permettre l'accès par défaut
+  // Permettre l'accès par défaut (notamment pour "/")
   return NextResponse.next()
 })
 

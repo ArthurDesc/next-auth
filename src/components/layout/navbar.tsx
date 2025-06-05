@@ -14,12 +14,15 @@ export function Navbar() {
   const isLoading = status === "loading"
   const isAuthenticated = !!session
 
+  // Logo redirige vers /dashboard si connecté, sinon vers /
+  const logoHref = isAuthenticated ? "/dashboard" : "/"
+
   return (
     <nav className="nav-glass border-b sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <Link href="/" className="text-xl font-bold text-primary hover:text-button-primary transition-colors cursor-pointer">
+            <Link href={logoHref} className="text-xl font-bold text-primary hover:text-button-primary transition-colors cursor-pointer">
               NextAuth
             </Link>
           </div>
@@ -49,26 +52,6 @@ export function Navbar() {
             {/* Utilisateur connecté */}
             {!isLoading && isAuthenticated && (
               <>
-                {/* Navigation pour utilisateurs connectés */}
-                <div className="hidden md:flex items-center space-x-2">
-                  <Link href="/dashboard">
-                    <Button 
-                      variant={pathname === "/dashboard" ? "default" : "ghost"}
-                      size="sm"
-                    >
-                      Dashboard
-                    </Button>
-                  </Link>
-                  <Link href="/profile">
-                    <Button 
-                      variant={pathname === "/profile" ? "default" : "ghost"}
-                      size="sm"
-                    >
-                      Profil
-                    </Button>
-                  </Link>
-                </div>
-
                 {/* Menu utilisateur intégré */}
                 <UserMenu />
               </>
