@@ -106,9 +106,6 @@ export function UserMenu() {
             <p className="text-xs leading-none text-muted-foreground">
               {session.user?.email}
             </p>
-            <p className="text-xs leading-none text-muted-foreground">
-              Connecté via {getProviderLabel()}
-            </p>
           </div>
         </DropdownMenuLabel>
         
