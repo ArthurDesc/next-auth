@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { signIn } from "next-auth/react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
@@ -11,6 +10,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import Link from "next/link"
+import { AuthService, type SignupData } from "@/lib/services"
 
 // Schéma de validation
 const signupSchema = z.object({
@@ -49,22 +49,16 @@ export function SignupForm({ callbackUrl = "/dashboard" }: SignupFormProps) {
     setSuccessMessage("")
 
     try {
-      // Appel API pour créer le compte
-      const response = await fetch("/api/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          password: data.password,
-        }),
-      })
+      const signupData: SignupData = {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      }
 
-      const result = await response.json()
+      // Appel du service pour créer le compte
+      const result = await AuthService.signUp(signupData)
 
-      if (!response.ok) {
+      if (!result.success) {
         if (result.details) {
           // Erreurs de validation détaillées
           const errorMessage = result.details
@@ -81,13 +75,9 @@ export function SignupForm({ callbackUrl = "/dashboard" }: SignupFormProps) {
       setSuccessMessage("Compte créé avec succès ! Connexion en cours...")
 
       // Connexion automatique après inscription
-      const signInResult = await signIn("credentials", {
-        email: data.email,
-        password: data.password,
-        redirect: false,
-      })
+      const signInResult = await AuthService.autoSignInAfterSignup(data.email, data.password)
 
-      if (signInResult?.ok) {
+      if (signInResult.success && signInResult.session) {
         router.push(callbackUrl)
         router.refresh()
       } else {
@@ -108,12 +98,9 @@ export function SignupForm({ callbackUrl = "/dashboard" }: SignupFormProps) {
     setGlobalError("")
 
     try {
-      await signIn("google", {
-        callbackUrl,
-      })
-    } catch (error) {
-      console.error("Erreur de connexion Google:", error)
-      setGlobalError("Erreur lors de l'inscription avec Google")
+      await AuthService.signUpWithGoogle(callbackUrl)
+    } catch (error: any) {
+      setGlobalError(error.message || "Erreur lors de l'inscription avec Google")
       setIsLoading(false)
     }
   }

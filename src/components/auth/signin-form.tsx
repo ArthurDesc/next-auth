@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { signIn, getSession } from "next-auth/react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
@@ -11,6 +10,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import Link from "next/link"
+import { AuthService, type SigninData } from "@/lib/services"
 
 // Schéma de validation
 const signinSchema = z.object({
@@ -42,24 +42,21 @@ export function SigninForm({ callbackUrl = "/dashboard" }: SigninFormProps) {
     setGlobalError("")
 
     try {
-      const result = await signIn("credentials", {
+      const signInData: SigninData = {
         email: data.email,
         password: data.password,
-        redirect: false,
-      })
+      }
 
-      if (result?.error) {
-        setGlobalError("Email ou mot de passe incorrect")
+      const result = await AuthService.signInWithCredentials(signInData)
+
+      if (!result.success) {
+        setGlobalError(result.error || "Erreur lors de la connexion")
         return
       }
 
-      if (result?.ok) {
-        // Vérifier la session et rediriger
-        const session = await getSession()
-        if (session) {
-          router.push(callbackUrl)
-          router.refresh()
-        }
+      if (result.session) {
+        router.push(callbackUrl)
+        router.refresh()
       }
     } catch (error) {
       console.error("Erreur de connexion:", error)
@@ -74,12 +71,9 @@ export function SigninForm({ callbackUrl = "/dashboard" }: SigninFormProps) {
     setGlobalError("")
 
     try {
-      await signIn("google", {
-        callbackUrl,
-      })
-    } catch (error) {
-      console.error("Erreur de connexion Google:", error)
-      setGlobalError("Erreur lors de la connexion avec Google")
+      await AuthService.signInWithGoogle(callbackUrl)
+    } catch (error: any) {
+      setGlobalError(error.message || "Erreur lors de la connexion avec Google")
       setIsLoading(false)
     }
   }

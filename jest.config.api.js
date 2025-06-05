@@ -2,6 +2,7 @@
 const config = {
   testEnvironment: 'node',
   moduleNameMapper: {
+    '^@/auth$': '<rootDir>/auth.ts',
     '^@/(.*)$': '<rootDir>/src/$1',
   },
   testMatch: [

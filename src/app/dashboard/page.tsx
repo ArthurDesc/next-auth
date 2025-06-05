@@ -69,12 +69,6 @@ export default function Dashboard() {
                     {session?.user?.email}
                   </p>
                 </div>
-                <div>
-                  <p className="text-sm font-medium">Provider :</p>
-                  <p className="text-sm text-muted-foreground">
-                    {(session?.user as { provider?: string })?.provider || "Inconnu"}
-                  </p>
-                </div>
               </CardContent>
             </Card>
           </div>

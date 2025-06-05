@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label"
 import { ArrowLeft, Save, User, Camera, Eye, EyeOff, Upload } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { UserService } from "@/lib/services"
 
 export default function ProfilePage() {
   const { data: session, status, update } = useSession()
@@ -103,27 +104,54 @@ export default function ProfilePage() {
         return
       }
 
-      // TODO: Appeler l'API pour mettre à jour les données utilisateur
-      console.log("Données à sauvegarder:", {
-        name: formData.name,
-        email: formData.email,
-        hasPasswordChange: !!formData.newPassword,
-        hasImageChange: !!imageFile
-      })
-      
-      // Simuler une requête API
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
-      // Mettre à jour la session
-      await update({
-        ...session,
-        user: {
-          ...session?.user,
-          name: formData.name,
-          email: formData.email,
-          image: profileImage || session?.user?.image,
+      let profileUpdateSuccess = true
+      let passwordUpdateSuccess = true
+
+      // Mise à jour des informations de profil (nom et email)
+      if (formData.name !== session?.user?.name || formData.email !== session?.user?.email) {
+        const profileData: any = {}
+        if (formData.name !== session?.user?.name) profileData.name = formData.name
+        if (formData.email !== session?.user?.email) profileData.email = formData.email
+
+        const profileResult = await UserService.updateProfile(profileData)
+        
+        if (!profileResult.success) {
+          alert(profileResult.error || "Erreur lors de la mise à jour du profil")
+          setIsLoading(false)
+          return
         }
-      })
+
+        profileUpdateSuccess = true
+      }
+
+      // Changement de mot de passe (si demandé)
+      if (formData.newPassword && formData.currentPassword) {
+        const passwordResult = await UserService.changePassword({
+          currentPassword: formData.currentPassword,
+          newPassword: formData.newPassword
+        })
+
+        if (!passwordResult.success) {
+          alert(passwordResult.error || "Erreur lors du changement de mot de passe")
+          setIsLoading(false)
+          return
+        }
+
+        passwordUpdateSuccess = true
+      }
+
+      // Mettre à jour la session avec les nouvelles données
+      if (profileUpdateSuccess) {
+        await update({
+          ...session,
+          user: {
+            ...session?.user,
+            name: formData.name,
+            email: formData.email,
+            image: profileImage || session?.user?.image,
+          }
+        })
+      }
 
       // Réinitialiser les champs de mot de passe
       setFormData(prev => ({
@@ -133,7 +161,15 @@ export default function ProfilePage() {
         confirmPassword: "",
       }))
 
-      alert("Profil mis à jour avec succès !")
+      // Message de succès
+      if (profileUpdateSuccess && passwordUpdateSuccess) {
+        if (formData.newPassword) {
+          alert("Profil et mot de passe mis à jour avec succès !")
+        } else {
+          alert("Profil mis à jour avec succès !")
+        }
+      }
+
     } catch (error) {
       console.error("Erreur lors de la sauvegarde:", error)
       alert("Une erreur est survenue lors de la sauvegarde.")
