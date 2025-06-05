@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { SessionProviderWrapper } from "@/providers/session-provider";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -19,6 +20,7 @@ export default function RootLayout({
         <SessionProviderWrapper>
           <ThemeProvider>
             {children}
+            <Toaster />
           </ThemeProvider>
         </SessionProviderWrapper>
       </body>

@@ -40,14 +40,16 @@ Il faut utiliser les outils resolve-library-id ou get-library-docs.
 3. browser-tools
      But : Inspecter, auditer ou extraire dynamiquement des informations depuis une page web locale.
      Utiliser ce serveur lorsque :
+       • L'ia modifie le c    ode en particulier celui côté frontend.
        • L'utilisateur souhaite récupérer les logs console, réseau, erreurs JS.
        • Il faut exécuter des audits de performance, accessibilité, SEO, Next.js.
-       • L'utilisateur veut capturer une capture d'écran ou inspecter un élément sélectionné.
+sélectionné.
      Outils disponibles :
        - getConsoleLogs, getConsoleErrors, getNetworkErrors, getNetworkLogs
        - takeScreenshot, getSelectedElement
        - runAccessibilityAudit, runPerformanceAudit, runSEOAudit, runNextJSAudit
        - runBestPracticesAudit, runDebuggerMode, runAuditMode, wipeLogs
+
 
 4. curl  
      But : Effectuer des requêtes HTTP externes (GET, POST, etc.) pour interroger des APIs, récupérer des ressources distantes, ou tester un endpoint.  
