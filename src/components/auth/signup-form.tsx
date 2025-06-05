@@ -68,7 +68,7 @@ export function SignupForm({ callbackUrl = "/dashboard" }: SignupFormProps) {
         if (result.details) {
           // Erreurs de validation détaillées
           const errorMessage = result.details
-            .map((error: any) => error.message)
+            .map((error: { message: string }) => error.message)
             .join(", ")
           setGlobalError(errorMessage)
         } else {

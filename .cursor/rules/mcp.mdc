@@ -42,9 +42,18 @@ Il faut utiliser les outils resolve-library-id ou get-library-docs.
      Utiliser ce serveur lorsque :
        • L'utilisateur souhaite récupérer les logs console, réseau, erreurs JS.
        • Il faut exécuter des audits de performance, accessibilité, SEO, Next.js.
-       • L'utilisateur veut capturer une capture d’écran ou inspecter un élément sélectionné.
+       • L'utilisateur veut capturer une capture d'écran ou inspecter un élément sélectionné.
      Outils disponibles :
        - getConsoleLogs, getConsoleErrors, getNetworkErrors, getNetworkLogs
        - takeScreenshot, getSelectedElement
        - runAccessibilityAudit, runPerformanceAudit, runSEOAudit, runNextJSAudit
        - runBestPracticesAudit, runDebuggerMode, runAuditMode, wipeLogs
+
+4. curl  
+     But : Effectuer des requêtes HTTP externes (GET, POST, etc.) pour interroger des APIs, récupérer des ressources distantes, ou tester un endpoint.  
+     Utiliser ce serveur lorsque :  
+       • L'utilisateur souhaite tester une API avec une requête GET, POST, PUT ou DELETE.  
+       • Il est nécessaire de simuler un appel HTTP vers une URL précise.  
+       • On veut inspecter le corps de réponse brut d'un serveur (JSON, HTML, etc.).  
+     Outils à utiliser : fetch, custom HTTP headers, body, method (selon contexte de la requête).
+globs:

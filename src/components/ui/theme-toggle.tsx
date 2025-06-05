@@ -31,7 +31,7 @@ export function ThemeToggle() {
       variant="ghost"
       size="default"
       onClick={toggleTheme}
-      className="w-10 h-10 px-0 hover:bg-accent hover:text-accent-foreground"
+      className="w-10 h-10 px-0 hover:bg-accent hover:text-accent-foreground hover:cursor-pointer"
     >
       {theme === "light" ? (
         <svg

@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { signOut, useSession } from "next-auth/react"
-import { Button } from "@/components/ui/button"
+import Image from "next/image"
 import { LogOut, User } from "lucide-react"
 
 export function UserMenu() {
@@ -41,7 +41,7 @@ export function UserMenu() {
   }
 
   const getProviderLabel = (): string => {
-    const provider = (session.user as any)?.provider
+    const provider = (session.user as { provider?: string })?.provider
     switch (provider) {
       case "google":
         return "Google"
@@ -62,9 +62,11 @@ export function UserMenu() {
         disabled={isLoading}
       >
         {session.user?.image ? (
-          <img
+          <Image
             src={session.user?.image}
             alt={getUserDisplayName()}
+            width={32}
+            height={32}
             className="w-8 h-8 rounded-full"
           />
         ) : (
@@ -83,9 +85,6 @@ export function UserMenu() {
           <div className="p-3 border-b border-border">
             <p className="text-sm font-medium">{getUserDisplayName()}</p>
             <p className="text-xs text-muted-foreground">{session.user?.email}</p>
-            <p className="text-xs text-muted-foreground">
-              Connecté via {getProviderLabel()}
-            </p>
           </div>
           
           <div className="p-1">

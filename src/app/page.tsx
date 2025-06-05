@@ -17,12 +17,12 @@ export default function Home() {
           </h1>
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <Link href="/auth/signup">
-              <Button size="lg" className="btn-primary px-8 py-3 hover:cursor-pointer">
+              <Button size="lg" className="btn-primary px-8 py-3">
                 Inscription
               </Button>
             </Link>
             <Link href="/auth/signin">
-              <Button variant="outline" size="lg" className="px-8 py-3 hover:cursor-pointer hover:bg-accent hover:text-accent-foreground">
+              <Button variant="outline" size="lg" className="px-8 py-3">
                 Connexion
               </Button>
             </Link>

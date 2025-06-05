@@ -72,42 +72,12 @@ export default function Dashboard() {
               <div>
                 <p className="text-sm font-medium">Provider :</p>
                 <p className="text-sm text-muted-foreground">
-                  {(session.user as any)?.provider || "Inconnu"}
+                  {(session.user as { provider?: string })?.provider || "Inconnu"}
                 </p>
               </div>
             </CardContent>
           </Card>
 
-          {/* Carte de statistiques */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Statistiques</CardTitle>
-              <CardDescription>
-                Aperçu de votre activité
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">0</div>
-              <p className="text-xs text-muted-foreground">
-                Aucune activité pour le moment
-              </p>
-            </CardContent>
-          </Card>
-
-          {/* Carte d'actions rapides */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Actions rapides</CardTitle>
-              <CardDescription>
-                Fonctionnalités à venir
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground">
-                Fonctionnalités en cours de développement...
-              </p>
-            </CardContent>
-          </Card>
         </div>
       </div>
     </div>

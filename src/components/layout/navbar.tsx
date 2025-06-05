@@ -39,7 +39,7 @@ export function Navbar() {
 
             {pathname.startsWith("/auth") && !isAuthenticated && (
               <Link href="/">
-                <Button variant="outline" className="hover:bg-accent hover:text-accent-foreground">
+                <Button variant="outline" className="hover:bg-accent hover:text-accent-foreground hover:cursor-pointer">
                   ← Accueil
                 </Button>
               </Link>
@@ -47,16 +47,6 @@ export function Navbar() {
 
             {isAuthenticated && (
               <>
-                <Link href="/dashboard">
-                  <Button variant="ghost" className="hover:bg-accent hover:text-accent-foreground">
-                    Dashboard
-                  </Button>
-                </Link>
-                <Link href="/">
-                  <Button variant="outline" className="hover:bg-accent hover:text-accent-foreground">
-                    Accueil
-                  </Button>
-                </Link>
                 <Button variant="ghost" className="text-destructive hover:text-destructive hover:bg-destructive/10">
                   Déconnexion
                 </Button>
@@ -65,7 +55,7 @@ export function Navbar() {
 
             {pathname === "/" && isAuthenticated && (
               <Link href="/dashboard">
-                <Button className="btn-primary">
+                <Button className="btn-primary hover:cursor-pointer">
                   Mon Dashboard
                 </Button>
               </Link>
