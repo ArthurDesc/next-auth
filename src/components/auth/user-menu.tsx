@@ -58,7 +58,7 @@ export function UserMenu() {
       {/* User Avatar/Button */}
       <button
         onClick={() => setShowMenu(!showMenu)}
-        className="flex items-center space-x-2 p-2 rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors"
+        className="flex items-center space-x-2 p-2 rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer disabled:cursor-not-allowed"
         disabled={isLoading}
       >
         {session.user?.image ? (
@@ -89,7 +89,7 @@ export function UserMenu() {
           
           <div className="p-1">
             <button
-              className="flex items-center w-full px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground rounded-sm transition-colors"
+              className="flex items-center w-full px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground rounded-sm transition-colors cursor-pointer"
               onClick={() => setShowMenu(false)}
             >
               <User className="mr-2 h-4 w-4" />
@@ -97,7 +97,7 @@ export function UserMenu() {
             </button>
             
             <button
-              className="flex items-center w-full px-3 py-2 text-sm text-red-600 hover:bg-red-50 hover:text-red-700 rounded-sm transition-colors"
+              className="flex items-center w-full px-3 py-2 text-sm text-red-600 hover:bg-red-50 hover:text-red-700 rounded-sm transition-colors cursor-pointer disabled:cursor-not-allowed"
               onClick={handleSignOut}
               disabled={isLoading}
             >

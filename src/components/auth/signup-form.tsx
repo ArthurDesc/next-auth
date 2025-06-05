@@ -254,7 +254,7 @@ export function SignupForm({ callbackUrl = "/dashboard" }: SignupFormProps) {
         <div className="text-center text-sm">
           <Link
             href="/auth/signin"
-            className="text-button-primary hover:text-button-primary-hover font-medium"
+            className="text-button-primary hover:text-button-primary-hover font-medium cursor-pointer"
           >
             Déjà un compte ? Se connecter
           </Link>

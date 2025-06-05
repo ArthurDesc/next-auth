@@ -16,7 +16,7 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <Link href="/" className="text-xl font-bold text-primary hover:text-button-primary transition-colors">
+            <Link href="/" className="text-xl font-bold text-primary hover:text-button-primary transition-colors cursor-pointer">
               NextAuth
             </Link>
           </div>
@@ -25,24 +25,16 @@ export function Navbar() {
             {pathname === "/" && !isAuthenticated && (
               <>
                 <Link href="/auth/signin">
-                  <Button variant="ghost" className="hover:bg-accent hover:text-accent-foreground hover:cursor-pointer">
+                  <Button variant="ghost" className="hover:bg-accent hover:text-accent-foreground">
                     Connexion
                   </Button>
                 </Link>
                 <Link href="/auth/signup">
-                  <Button className="btn-primary hover:cursor-pointer">
+                  <Button className="btn-primary">
                     Inscription
                   </Button>
                 </Link>
               </>
-            )}
-
-            {pathname.startsWith("/auth") && !isAuthenticated && (
-              <Link href="/">
-                <Button variant="outline" className="hover:bg-accent hover:text-accent-foreground hover:cursor-pointer">
-                  ← Accueil
-                </Button>
-              </Link>
             )}
 
             {isAuthenticated && (
@@ -55,7 +47,7 @@ export function Navbar() {
 
             {pathname === "/" && isAuthenticated && (
               <Link href="/dashboard">
-                <Button className="btn-primary hover:cursor-pointer">
+                <Button className="btn-primary">
                   Mon Dashboard
                 </Button>
               </Link>
