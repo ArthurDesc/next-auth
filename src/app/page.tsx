@@ -1,5 +1,3 @@
-"use client"
-
 import { Button } from "@/components/ui/button"
 import { Navbar } from "@/components/layout/navbar"
 import { RouteGuard } from "@/components/auth/route-guard"
@@ -18,18 +16,6 @@ export default function Home() {
             <h1 className="text-4xl font-bold tracking-tight text-primary sm:text-6xl">
               Bienvenue sur NextAuth
             </h1>
-            <div className="mt-10 flex items-center justify-center gap-x-6">
-              <Link href="/auth/signup">
-                <Button size="lg" className="btn-primary px-8 py-3">
-                  Inscription
-                </Button>
-              </Link>
-              <Link href="/auth/signin">
-                <Button variant="outline" size="lg" className="px-8 py-3">
-                  Connexion
-                </Button>
-              </Link>
-            </div>
           </div>
         </main>
       </div>

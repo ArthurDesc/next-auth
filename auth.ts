@@ -3,13 +3,11 @@
 
 import NextAuth from "next-auth"
 import { PrismaAdapter } from "@auth/prisma-adapter"
-import { PrismaClient } from "@prisma/client"
+import { prisma } from "@/lib/db" // ✅ Utiliser l'instance globale optimisée
 import Google from "next-auth/providers/google"
 import Credentials from "next-auth/providers/credentials"
 import bcrypt from "bcryptjs"
 import { z } from "zod"
-
-const prisma = new PrismaClient()
 
 // Schéma de validation pour les credentials
 const credentialsSchema = z.object({

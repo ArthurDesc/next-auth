@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 
 interface RouteGuardProps {
   children: React.ReactNode
@@ -12,43 +12,42 @@ interface RouteGuardProps {
 export function RouteGuard({ children, requireAuth = true }: RouteGuardProps) {
   const { data: session, status } = useSession()
   const router = useRouter()
-  const [isAuthorized, setIsAuthorized] = useState(false)
 
   useEffect(() => {
-    const checkAuth = () => {
-      if (status === "loading") return // Attendre le chargement
+    // Attendre que la session soit chargée
+    if (status === "loading") return
 
-      const isAuthenticated = !!session
+    const isAuthenticated = !!session
 
-      if (requireAuth) {
-        // Route protégée : nécessite une authentification
-        if (!isAuthenticated) {
-          router.replace("/auth/signin")
-          return
-        }
-      } else {
-        // Route publique uniquement : interdite aux utilisateurs connectés
-        if (isAuthenticated) {
-          router.replace("/dashboard")
-          return
-        }
-      }
-
-      setIsAuthorized(true)
+    if (requireAuth && !isAuthenticated) {
+      // Route protégée : rediriger vers signin
+      router.replace("/auth/signin")
+      return
     }
 
-    checkAuth()
+    if (!requireAuth && isAuthenticated) {
+      // Route publique : rediriger vers dashboard
+      router.replace("/dashboard")
+      return
+    }
   }, [session, status, router, requireAuth])
 
-  // Affichage de chargement pendant la vérification
-  if (status === "loading" || !isAuthorized) {
-    return (
-      <div className="min-h-screen bg-gradient-app flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
-        </div>
-      </div>
-    )
+  // Afficher le contenu immédiatement si pas de redirection nécessaire
+  const isAuthenticated = !!session
+
+  // Pendant le loading, afficher le contenu pour éviter le délai
+  if (status === "loading") {
+    return <>{children}</>
+  }
+
+  // Vérifier si une redirection est nécessaire
+  const shouldRedirect = 
+    (requireAuth && !isAuthenticated) || 
+    (!requireAuth && isAuthenticated)
+
+  // Si redirection en cours, ne pas afficher de loader bloquant
+  if (shouldRedirect) {
+    return <>{children}</>
   }
 
   return <>{children}</>

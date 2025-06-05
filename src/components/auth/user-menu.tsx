@@ -14,6 +14,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { LogoutConfirmation } from "@/components/auth/logout-confirmation"
 
 export function UserMenu() {
   const { data: session } = useSession()
@@ -121,14 +122,15 @@ export function UserMenu() {
         
         <DropdownMenuSeparator />
         
-        <DropdownMenuItem
-          className="cursor-pointer text-red-600 focus:text-red-600"
-          onClick={handleSignOut}
-          disabled={isLoading}
-        >
-          <LogOut className="mr-2 h-4 w-4" />
-          <span>{isLoading ? "Déconnexion..." : "Se déconnecter"}</span>
-        </DropdownMenuItem>
+        <LogoutConfirmation onConfirm={handleSignOut} isLoading={isLoading}>
+          <DropdownMenuItem
+            className="cursor-pointer text-red-600 focus:text-red-600"
+            onSelect={(e) => e.preventDefault()}
+          >
+            <LogOut className="mr-2 h-4 w-4" />
+            <span>Se déconnecter</span>
+          </DropdownMenuItem>
+        </LogoutConfirmation>
       </DropdownMenuContent>
     </DropdownMenu>
   )
