@@ -1,0 +1,33 @@
+---
+description: 
+globs: app/**/*, components/**/*, lib/**/*, styles/**/*, tailwind.config.ts
+alwaysApply: false
+---
+description: Base frontend project boilerplate
+
+
+
+## Règles d'architecture
+
+- Tous les composants UI sont basés sur **shadcn/ui**.
+- Un composant `Dialog` **doit être combiné avec** `Drawer` dans les cas d'usage modaux — **comme recommandé dans la documentation officielle** de ShadCN.
+- Utiliser des `slot` pour la composition des layouts et composants dynamiques.
+- Regrouper les composants dans `/components/ui` pour les composants bas-niveau (Button, Input...), et `/components/core` pour ceux spécifiques à l'app.
+
+---
+
+## Règles de design
+
+- Interface **sobre, moderne, sans surcharge visuelle**.
+- **Pas de texte de bienvenue type "Bienvenue sur l'application"**.
+- Utiliser des titres concis, un espacement clair et des interfaces accessibles dès le premier chargement.
+- Éviter les cards inutiles, les composants doivent **servir la navigation ou la compréhension** de l'utilisateur.
+
+
+
+
+
+
+
+
+
