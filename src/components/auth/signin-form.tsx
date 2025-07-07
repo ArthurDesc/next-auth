@@ -164,7 +164,7 @@ export function SigninForm({ callbackUrl = "/dashboard" }: SigninFormProps) {
             )}
           </div>
 
-          <div className="flex justify-between">
+          <div className="flex justify-center">
             <Link href="/auth/forgot-password" className="text-sm text-button-primary hover:text-button-primary-hover font-medium cursor-pointer">
               Mot de passe oublié ?
             </Link>
