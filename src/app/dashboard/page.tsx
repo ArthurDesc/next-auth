@@ -46,32 +46,6 @@ export default function Dashboard() {
               </p>
             </div>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Carte d'informations utilisateur */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Profil utilisateur</CardTitle>
-                <CardDescription>
-                  Vos informations de compte
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                <div>
-                  <p className="text-sm font-medium">Nom :</p>
-                  <p className="text-sm text-muted-foreground">
-                    {session?.user?.name || "Non renseigné"}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm font-medium">Email :</p>
-                  <p className="text-sm text-muted-foreground">
-                    {session?.user?.email}
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
         </div>
       </div>
     </RouteGuard>
