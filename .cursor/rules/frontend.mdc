@@ -1,6 +1,5 @@
 ---
-description: 
-globs: app/**/*, components/**/*, lib/**/*, styles/**/*, tailwind.config.ts
+globs: src/app/**/*, src/components/**/*, lib/**/*, styles/**/*, tailwind.config.ts
 alwaysApply: false
 ---
 description: Base frontend project boilerplate

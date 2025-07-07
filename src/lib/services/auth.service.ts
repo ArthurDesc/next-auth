@@ -32,6 +32,10 @@ export interface SignupResponse extends AuthResponse {
   }
 }
 
+export interface ForgotPasswordResponse extends AuthResponse {}
+
+export interface ResetPasswordResponse extends AuthResponse {}
+
 /**
  * Service d'authentification pour centraliser les appels API
  */
@@ -125,5 +129,77 @@ export class AuthService {
    */
   static async autoSignInAfterSignup(email: string, password: string): Promise<SigninResponse> {
     return this.signInWithCredentials({ email, password })
+  }
+
+  /**
+   * Demande de réinitialisation de mot de passe
+   * TODO: Remplacer par le vrai service quand l'API sera prête
+   */
+  static async forgotPassword(email: string): Promise<ForgotPasswordResponse> {
+    try {
+      // MOCK - À remplacer par le vrai appel API
+      // const response = await ApiService.post<{}>("/api/auth/forgot-password", { email })
+      
+      // Simulation d'un délai d'API
+      await new Promise(resolve => setTimeout(resolve, 1500))
+      
+      // Simulation d'erreur pour certains emails
+      if (email === "error@test.com") {
+        return {
+          success: false,
+          error: "Cette adresse email n'existe pas dans notre système"
+        }
+      }
+
+      return {
+        success: true
+      }
+    } catch (error) {
+      console.error("Erreur lors de la demande de réinitialisation:", error)
+      return {
+        success: false,
+        error: "Une erreur est survenue lors de l'envoi de l'email"
+      }
+    }
+  }
+
+  /**
+   * Réinitialisation du mot de passe avec token
+   * TODO: Remplacer par le vrai service quand l'API sera prête
+   */
+  static async resetPassword(token: string, password: string): Promise<ResetPasswordResponse> {
+    try {
+      // MOCK - À remplacer par le vrai appel API
+      // const response = await ApiService.post<{}>("/api/auth/reset-password", { token, password })
+      
+      // Simulation d'un délai d'API
+      await new Promise(resolve => setTimeout(resolve, 1500))
+      
+      // Simulation de token invalide/expiré
+      if (token === "invalid-token") {
+        return {
+          success: false,
+          error: "Le lien de réinitialisation est invalide ou a expiré"
+        }
+      }
+      
+      // Simulation d'un mot de passe trop faible
+      if (password === "password") {
+        return {
+          success: false,
+          error: "Ce mot de passe est trop faible. Veuillez choisir un mot de passe plus sécurisé."
+        }
+      }
+
+      return {
+        success: true
+      }
+    } catch (error) {
+      console.error("Erreur lors de la réinitialisation:", error)
+      return {
+        success: false,
+        error: "Une erreur est survenue lors de la réinitialisation du mot de passe"
+      }
+    }
   }
 } 
