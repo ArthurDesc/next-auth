@@ -3,7 +3,6 @@
 import { useState, useMemo } from "react"
 import { useSession } from "next-auth/react"
 import { toast } from "sonner"
-import { Navbar } from "@/components/layout/navbar"
 import { RouteGuard } from "@/components/auth/route-guard"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -138,7 +137,6 @@ export default function ProfilePage() {
   if (status === "loading") {
     return (
       <div className="min-h-screen bg-gradient-app">
-        <Navbar />
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
         </div>
@@ -149,7 +147,6 @@ export default function ProfilePage() {
   if (!session) {
     return (
       <div className="min-h-screen bg-gradient-app">
-        <Navbar />
         <div className="flex items-center justify-center min-h-[60vh]">
           <p className="text-muted-foreground">Non connecté</p>
         </div>
@@ -307,7 +304,6 @@ export default function ProfilePage() {
   return (
     <RouteGuard requireAuth={true}>
       <div className="min-h-screen bg-gradient-app">
-        <Navbar />
         
         <div className="container mx-auto py-8 px-4 max-w-2xl">
           <div className="flex items-center gap-3 mb-8">

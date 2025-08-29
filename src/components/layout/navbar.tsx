@@ -22,7 +22,7 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <Link href={logoHref} className="text-xl font-bold text-primary hover:text-button-primary transition-colors cursor-pointer">
+            <Link href={logoHref} className="text-xl font-bold text-primary hover:text-button-primary transition-colors cursor-pointer" prefetch>
               NextAuth
             </Link>
           </div>
@@ -36,7 +36,7 @@ export function Navbar() {
             {/* Utilisateur non connecté */}
             {!isLoading && !isAuthenticated && (
               <>
-                <Link href="/auth/signin">
+                <Link href="/auth/signin" prefetch>
                   <Button variant="ghost" className="hover:bg-accent hover:text-accent-foreground">
                     Connexion
                   </Button>

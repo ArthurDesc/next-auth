@@ -1,7 +1,6 @@
 "use client"
 
 import { useSession } from "next-auth/react"
-import { Navbar } from "@/components/layout/navbar"
 import { RouteGuard } from "@/components/auth/route-guard"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
@@ -11,7 +10,6 @@ export default function Dashboard() {
   if (status === "loading") {
     return (
       <div className="min-h-screen bg-gradient-app">
-        <Navbar />
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
         </div>
@@ -22,7 +20,6 @@ export default function Dashboard() {
   if (!session) {
     return (
       <div className="min-h-screen bg-gradient-app">
-        <Navbar />
         <div className="flex items-center justify-center min-h-[60vh]">
           <p className="text-muted-foreground">Non connecté</p>
         </div>
@@ -33,7 +30,6 @@ export default function Dashboard() {
   return (
     <RouteGuard requireAuth={true}>
       <div className="min-h-screen bg-gradient-app">
-        <Navbar />
         
         <div className="container mx-auto py-8 px-4">
           <div className="flex items-center justify-between mb-8">

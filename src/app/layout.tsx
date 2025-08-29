@@ -3,6 +3,7 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import { SessionProviderWrapper } from "@/providers/session-provider";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
+import { Navbar } from "@/components/layout/navbar";
 
 export const metadata: Metadata = {
   title: "NextAuth App",
@@ -19,6 +20,7 @@ export default function RootLayout({
       <body className="antialiased">
         <SessionProviderWrapper>
           <ThemeProvider>
+            <Navbar />
             {children}
             <Toaster />
           </ThemeProvider>

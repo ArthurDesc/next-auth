@@ -15,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { LogoutConfirmation } from "@/components/auth/logout-confirmation"
+import Link from "next/link"
 
 export function UserMenu() {
   const { data: session } = useSession()
@@ -35,10 +36,6 @@ export function UserMenu() {
       console.error("Erreur lors de la déconnexion:", error)
       setIsLoading(false)
     }
-  }
-
-  const handleNavigateToProfile = () => {
-    router.push("/profile")
   }
 
   const getInitials = (name: string | null | undefined): string => {
@@ -112,14 +109,12 @@ export function UserMenu() {
         
         <DropdownMenuSeparator />
         
-        <DropdownMenuItem
-          className="cursor-pointer"
-          onClick={handleNavigateToProfile}
-        >
-          <User className="mr-2 h-4 w-4" />
-          <span>Mon profil</span>
-        </DropdownMenuItem>
-        
+        <Link href="/profile" prefetch>
+          <DropdownMenuItem>
+            <User className="mr-2 h-4 w-4" />
+            <span>Mon profil</span>
+          </DropdownMenuItem>
+        </Link>
         <DropdownMenuSeparator />
         
         <LogoutConfirmation onConfirm={handleSignOut} isLoading={isLoading}>
